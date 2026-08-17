@@ -40,7 +40,12 @@ export function resolveEvent(ev,mode,done){
   if((ev.n==='宵夜文化'||ev.n==='場外代言邀約')&&mode!=='safe'&&!good)S.cntSnack++;
   /* 效果固定 ±1;豪賭成功則同一項再 +1(等於賭中加倍成長),豪賭失敗則 -1 再 -1 */
   /* 效果級距:保守 ±1 / 照常 ±2 / 豪賭 ±3;大心臟豪賭成功 +4、失敗 -2 */
-  let mag=mode==='safe'?1:mode==='bold'?100:0;
+  let mag=mode==='safe'?1:mode==='bold'?3:2;
+  if (good){
+    mag = 100;
+  } else{
+    mag = 0;
+  }
   if(mode==='bold'&&S.traits.clutch)mag=good?4:2; /* 大心臟:上檔更高、下檔更軟 */
   const fx=good?ev.g:ev.b; let out=[],touched=false;
   const applyAbil=(k,dir)=>{ const step=dir*mag;
